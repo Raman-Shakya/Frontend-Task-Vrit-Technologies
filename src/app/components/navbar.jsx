@@ -1,7 +1,6 @@
 import Image from "next/image"
 
-const Navbar = ({ language, setLanguage }) => {
-    const languages = ['python', 'html', 'javascript', 'java', 'c++', 'rust', 'php'];
+const Navbar = ({ language, theme, setLanguage, setTheme, languages, themes }) => {
 
     return (
         <nav className="static flex justify-between px-3 w-full bg-[--secondary-bg]">
@@ -13,17 +12,9 @@ const Navbar = ({ language, setLanguage }) => {
                 <div>
                     <select className="bg-black" value={language} onInput={(e) => setLanguage(e.target.value)}>
                         { languages.map((lang, index) => <option key={index} value={lang}>{lang}</option>) }
-                        {/* <option value={"python"} selected={language=="python"}>python</option>
-                        <option value={"html"} selected={language==}>html</option>
-                        <option value={"javascript"} selected={language==}>javascript</option>
-                        <option value={"java"} selected={language==}>java</option>
-                        <option value={"c++"}> selected={language==}c++</option>
-                        <option value={"rust"} selected={language==}>rust</option>
-                        <option value={"php"} selected={language==}>php</option> */}
                     </select>
-                    <select>
-                        <option value={'Github Light'}>Github Light</option>
-                        <option value={'Github Dark'}>Github Dark</option>
+                    <select className="bg-black" value={theme} onInput={(e) => setTheme(e.target.value)}>
+                        { themes.map((theme, index) => <option key={index} value={theme}>{theme}</option>) }
                     </select>
                 </div>
                 <div>

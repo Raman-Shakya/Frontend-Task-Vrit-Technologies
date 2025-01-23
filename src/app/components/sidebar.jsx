@@ -6,11 +6,9 @@ const LanguageButton = ({ language, selected, setLanguage }) => {
     </div>
 }
 
-const Sidebar = ({ language, setLanguage }) => {
-    const languages = ['python', 'html', 'javascript', 'java', 'c++', 'rust', 'php'];
-
+const Sidebar = ({ language, setLanguage, languages }) => {
     return (
-        <div className="fixed flex flex-col l-0 bg-[--secondary-bg] h-full">
+        <div className="flex flex-col h-full l-0 bg-[--secondary-bg]">
             <div className="flex-1">
                 { languages.map((lang, index) => <LanguageButton key={index} language={lang} selected={language} setLanguage={setLanguage}></LanguageButton>) }
             </div>

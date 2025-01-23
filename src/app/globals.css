@@ -6,6 +6,9 @@
   --background: #1a1f28;
   --secondary-bg: #1f2937;
   --text-color: #e6e6e6;
+  --label-color: #6b7280;
+  --blue-color: #1976d2;
+  --blue-selected-color: #1976d2;
 }
 /* 
 @media (prefers-color-scheme: dark) {
