@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-const Navbar = ({ language, theme, setLanguage, setTheme, languages, themes }) => {
+const Navbar = ({ language, theme, setLanguage, setTheme, languages, themes, setControlFlow }) => {
 
     return (
         <nav className="static flex justify-between px-3 w-full bg-[--secondary-bg]">
@@ -18,8 +18,8 @@ const Navbar = ({ language, theme, setLanguage, setTheme, languages, themes }) =
                     </select>
                 </div>
                 <div>
-                    <button>Run</button>
-                    <button>Stop</button>
+                    <button onClick={() => setControlFlow('run')}>Run</button>
+                    <button onClick={() => setControlFlow('stop')}>Stop</button>
                 </div>
             </div>
         </nav>

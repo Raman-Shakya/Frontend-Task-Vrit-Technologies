@@ -3,7 +3,7 @@
 import { githubDark, githubLight } from "@uiw/codemirror-theme-github";
 import EditorComponent from "./editor"
 import OutputComponent from "./output"
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { vscodeDark, vscodeLight } from "@uiw/codemirror-theme-vscode";
 import { materialDark, materialLight } from "@uiw/codemirror-theme-material";
 import { python } from "@codemirror/lang-python";
@@ -13,12 +13,52 @@ import { cpp } from "@codemirror/lang-cpp";
 import { rust } from "@codemirror/lang-rust";
 import { php } from "@codemirror/lang-php";
 import { StreamLanguage } from "@codemirror/language";
+import useWebSocket from "react-use-websocket";
+import { java } from "@codemirror/lang-java";
 
 
 
-const Interface = ({ language, theme }) => {
+const Interface = ({ language, theme, controlFlow }) => {
     const [themeElement, setThemeElement] = useState();
     const [languageExtension, setLanguageExtension] = useState(python);
+
+    const [codeText, setCodeText] = useState('');
+    const [outputText, setOutputText] = useState('');
+
+    const [socketUrl, setSocketUrl] = useState(process.env.NEXT_PUBLIC_WEBSOCKET_URL);
+
+    const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
+    
+    useEffect(() => {
+        if (controlFlow === 'run') {
+            sendCode();
+        }
+        else if (controlFlow === 'stop') {
+            stopProcess();
+        }
+    }, [controlFlow]);
+
+    useEffect(() => {
+        if (lastMessage !==null) {
+            const data = JSON.parse(lastMessage.data);
+        
+            if (data.type==='run') {
+                console.log("running");
+                setOutputText('');
+            }
+            else if (data.type==='stdout') {
+                console.log(data.data);
+                setOutputText((prev) => prev + data.data);
+            }
+            else if (data.type==='stderr') {
+                console.log(data.data);
+                setOutputText((prev) => prev + data.data);
+            }
+            console.log(data);
+            
+
+        }
+    }, [lastMessage]);
 
     useEffect(() => {
         switch (theme) {
@@ -32,12 +72,31 @@ const Interface = ({ language, theme }) => {
     }, [theme]);
 
     useEffect(() => {
+        // console.log(codeText);
+    }, [codeText])
+
+    const sendCode = useCallback(() => {
+        sendMessage(JSON.stringify({
+            "command": "run",
+            "code": codeText,
+            "language": language,
+            "input": ""
+        }))
+    }, [codeText]);
+
+    const stopProcess = useCallback(() => {
+        sendMessage(JSON.stringify({
+            "command": "stop"
+        }))
+    }, []);
+
+    useEffect(() => {
         switch (language) {
             case 'python': setLanguageExtension(python); break;
             case 'html': setLanguageExtension(html); break;
             case 'javascript': setLanguageExtension(javascript); break;
             case 'java': setLanguageExtension(java); break;
-            case 'c++': setLanguageExtension(cpp); break;
+            case 'C++': setLanguageExtension(cpp); break;
             case 'rust': setLanguageExtension(rust); break;
             case 'php': setLanguageExtension(php); break;
         }
@@ -45,9 +104,9 @@ const Interface = ({ language, theme }) => {
 
     return (
         <section className="flex gap-2 w-full bg-[--secondary-bg] my-10 mx-2 px-2 pt-4 rounded-lg">
-            <EditorComponent language={[StreamLanguage.define(languageExtension)]} theme={themeElement} />
+            <EditorComponent language={[StreamLanguage.define(languageExtension)]} text={codeText} setText={setCodeText} theme={themeElement} />
             <div className="w-1 bg-[--label-color]"></div>
-            <OutputComponent theme={themeElement} /> 
+            <OutputComponent text={outputText} theme={themeElement} clearOutput={()=>setOutputText('')} /> 
         </section>
     )
 };
