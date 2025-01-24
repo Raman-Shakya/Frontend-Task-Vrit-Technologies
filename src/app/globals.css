@@ -5,10 +5,17 @@
 :root {
   --background: #1a1f28;
   --secondary-bg: #1f2937;
+  --dark-border-color: #111827;
   --text-color: #e6e6e6;
   --label-color: #6b7280;
   --blue-color: #1976d2;
   --blue-selected-color: #1976d2;
+
+  --green: #23a051;
+  --red: #991b1b;
+
+  --navbar-height: 72px;
+  --sidebar-width: 90px;
 }
 /* 
 @media (prefers-color-scheme: dark) {

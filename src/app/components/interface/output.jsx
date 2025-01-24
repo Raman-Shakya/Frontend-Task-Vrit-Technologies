@@ -17,7 +17,7 @@ const OutputComponent = ({ language, text, theme, clearOutput }) => {
                 height={"100vh"} 
                 theme={theme}
                 extensions={language}
-                className="border-8 border-[--background] rounded-lg"
+                className="border-8 border-[--dark-border-color] rounded-lg"
             />
         </section>
     )

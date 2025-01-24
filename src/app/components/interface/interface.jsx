@@ -43,20 +43,14 @@ const Interface = ({ language, theme, controlFlow }) => {
             const data = JSON.parse(lastMessage.data);
         
             if (data.type==='run') {
-                console.log("running");
                 setOutputText('');
             }
             else if (data.type==='stdout') {
-                console.log(data.data);
                 setOutputText((prev) => prev + data.data);
             }
             else if (data.type==='stderr') {
-                console.log(data.data);
                 setOutputText((prev) => prev + data.data);
             }
-            console.log(data);
-            
-
         }
     }, [lastMessage]);
 
@@ -70,10 +64,6 @@ const Interface = ({ language, theme, controlFlow }) => {
             case 'Material Dark': setThemeElement(materialDark); break;
         }
     }, [theme]);
-
-    useEffect(() => {
-        // console.log(codeText);
-    }, [codeText])
 
     const sendCode = useCallback(() => {
         sendMessage(JSON.stringify({
@@ -103,8 +93,8 @@ const Interface = ({ language, theme, controlFlow }) => {
     }, [language]);
 
     return (
-        <section className="flex gap-2 w-full bg-[--secondary-bg] my-10 mx-2 px-2 pt-4 rounded-lg">
-            <EditorComponent language={[StreamLanguage.define(languageExtension)]} text={codeText} setText={setCodeText} theme={themeElement} />
+        <section className="flex ml-[calc(0.5em_+_var(--sidebar-width))] mr-[0.5em] mt-[calc(1.5em_+_var(--navbar-height))] gap-2 w-full bg-[--secondary-bg] px-2 pt-4 rounded-lg">
+            <EditorComponent language={[languageExtension]} text={codeText} setText={setCodeText} theme={themeElement} />
             <div className="w-1 bg-[--label-color]"></div>
             <OutputComponent text={outputText} theme={themeElement} clearOutput={()=>setOutputText('')} /> 
         </section>
