@@ -39,3 +39,14 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+@font-face {
+  font-family: Nohemi;
+  src: url(/assets/fonts/Nohemi-Regular.ttf);
+}
+
+@font-face {
+  font-family: NohemiBold;
+  src: url(/assets/fonts/Nohemi-Bold.ttf);
+}

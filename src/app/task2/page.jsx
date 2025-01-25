@@ -20,8 +20,8 @@ const Task2 = () => {
     return (
         <div className={`w-full h-screen bg-[--task2-white] px-28 ${style.wrapper}`}>
             <section className="py-16">
-                <p className='text-[24px] font-[400] text-gray-900'>Explore our classes and master trending skills!</p>
-                <h1 className='text-[32px] font-[700] text-[#2B2B2B]'>Dive Into <span className='text-[#1DA077]'>What's Hot Right Now!</span>🔥</h1>
+                <p className='font-[Outfit] text-[24px] font-[400] text-gray-900'>Explore our classes and master trending skills!</p>
+                <h1 className='font-[Nohemi] text-[32px] font-[700] text-[#2B2B2B]'>Dive Into <span className='text-[#1DA077]'>What's Hot Right Now!</span>🔥</h1>
             </section>
             <section className={`flex gap-6 w-full max-w-[1300px] justify-between`}>
                 {

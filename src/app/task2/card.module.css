@@ -1,4 +1,5 @@
 .card {
+    font-family: Outfit;
     flex: 1;
     height: 500px;
     max-width: 800px;
@@ -84,6 +85,7 @@
     gap: 1em;
     align-items: center;
     bottom: 10px;
+    margin-left: 1em;
 }
 
 .illustration {
@@ -91,8 +93,9 @@
 }
 
 .statistics {
+    font-family: NohemiBold;
     font-size: 150px;
-    font-weight: 1000;
+    font-weight: 700;
     display: flex;
     align-items: flex-start;
 }
@@ -112,6 +115,7 @@
     font-size: 32px;
     font-weight: 700;
     line-height: 38.4px;
+    margin-bottom: 15px;
 }
 .descriptionWrapper p {
     font-size: 18px;
@@ -130,7 +134,7 @@
 
 .card:not(.active) .descriptionWrapper {
     width: 220px;
-    transform: translate(-120%, -150%) rotate(-90deg);;
+    transform: translate(-120%, -170%) rotate(-90deg);;
 }
 
 .card:not(.active):hover .statistics::after {
