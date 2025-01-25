@@ -16,6 +16,12 @@
 
   --navbar-height: 72px;
   --sidebar-width: 90px;
+
+  --task2-white: #ffffff;
+  --task2-red: #c33241;
+  --task2-gray: #f9ebec;
+
+  --task2-animation-delay: 1s cubic-bezier(0.26, -0.63, 0.68, 1.53);
 }
 /* 
 @media (prefers-color-scheme: dark) {

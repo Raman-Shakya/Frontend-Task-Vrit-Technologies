@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Frontend Developer Task
+> task based assessment for Frontend Developer Position at Vrit Technologies
 
-## Getting Started
+## Task Description
+1. **Code Runner Clone**
+    *site link*: [coderunner](https://compiler.skillshikshya.com/)
+    *websocket backend connection documentation was provided to the candidate*
+    
+2. **Figma Animation Replication**
+    *design link*: [figma](https://www.figma.com/design/6dYBIvBiVpsscffqH1dcjR/)
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation Guide
+1. Clone this repository
+2. Open the folder in terminal
+3. Create `.env` file in *root folder*
+    ```json
+    NEXT_PUBLIC_WEBSOCKET_URL="<websocket connection url>"
+    ```
+4. Install all dependencies
+    ```bash
+    npm install
+    ```
+5. Run the project in development mode
+    ```bash
+    npm run dev
+    ```
+6. Open `http://localhost:3000/`
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Solution
+> both tasks are managed in a common **nextjs** project
+1. **Task1**
+    components were structured as
+    > routed to `/task1`
+    ```
+    - Task1
+        |- Navbar
+        |- Sidebar
+        |- Interface
+            |- EditorComponent
+            |- OutputComponent
+    ```
 
-## Learn More
+    * Task1
+        This component bundles all the components collecting global states (`language`, `editor theme`, `controlFlows`) and constants (`languageList`, `themeList`). It also sends control signals to other Components.
+    
+    * Navbar
+        This component renders the navbar of the webpage. It contains `Logo`, `Name`, `Language Dropdown`, `Theme Dropdown`, `Start Button`, `Stop Button`
 
-To learn more about Next.js, take a look at the following resources:
+    * Sidebar
+        This component constains a list of languages with their logo to select within them. It calls a callback on `Task1` when change is detected.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    * Interface
+        This component wraps the `EditorComponent` and `OutputComponent`. It is responsible for the `websocket` connection.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    * EditorComponent
+        This component is responsible to collect code, used using `uiw/react-codemirror`
 
-## Deploy on Vercel
+    * OutputComponent
+        This component is responsible for showing the output from `Interface` and has a *clear* button to clear the output.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. **Task2**
+    The figma design was implemented using /**NEXT/REACT Component** and basic **CSS** modules.
+    > routed to `/task2`
+
+    Breakdown of Component
+    ```
+    - Task2
+        |- Card
+    ```
+
+    * Task2
+        This component is responsible for the structure of the design and to hold details like the currently active `Card` along with calculations for position of *illustrations* in individual cards
+    
+    * Card
+        This component is responsible for rendering a `Card` and managing their animations using modular `CSS`
+
+## Deployment
+> deployed using `vercel`

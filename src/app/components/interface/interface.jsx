@@ -95,8 +95,8 @@ const Interface = ({ language, theme, controlFlow }) => {
     return (
         <section className="flex ml-[calc(0.5em_+_var(--sidebar-width))] mr-[0.5em] mt-[calc(1.5em_+_var(--navbar-height))] gap-2 w-full bg-[--secondary-bg] px-2 pt-4 rounded-lg">
             <EditorComponent language={[languageExtension]} text={codeText} setText={setCodeText} theme={themeElement} />
-            <div className="w-1 bg-[--label-color]"></div>
-            <OutputComponent text={outputText} theme={themeElement} clearOutput={()=>setOutputText('')} /> 
+            <div className="w-1 bg-[--label-color]" onDrag={(e) => console.log(e)}></div>
+            <OutputComponent text={outputText} theme={themeElement} language={languageExtension} clearOutput={()=>setOutputText('')} /> 
         </section>
     )
 };
