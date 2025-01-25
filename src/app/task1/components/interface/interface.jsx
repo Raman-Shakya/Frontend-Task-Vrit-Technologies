@@ -37,7 +37,6 @@ const Interface = ({ language, theme, controlFlow, setControlFlow }) => {
         }
         else if (controlFlow === 'stop') {
             stopProcess();
-            setControlFlow('stopping');
         }
     }, [controlFlow]);
 
@@ -45,7 +44,7 @@ const Interface = ({ language, theme, controlFlow, setControlFlow }) => {
     useEffect(() => {
         if (lastMessage !==null) {
             const data = JSON.parse(lastMessage.data);
-        
+
             if (data.type==='run') {
                 setOutputText('');
             }
@@ -54,6 +53,12 @@ const Interface = ({ language, theme, controlFlow, setControlFlow }) => {
             }
             else if (data.type==='stderr') {
                 setOutputText((prev) => prev + data.data);
+            }
+            else if (data.type==='stop') {
+                setControlFlow('stopping');
+            }
+            else if (data.type==='input') {
+                // input
             }
         }
     }, [lastMessage]);
@@ -76,6 +81,14 @@ const Interface = ({ language, theme, controlFlow, setControlFlow }) => {
             "command": "stop"
         }))
     }, []);
+
+    // send additional input
+    const addInput = useCallback((inputValue) => {
+        sendMessage(JSON.stringify({
+            "command": "input",
+            "input": inputValue
+        }));
+    })
 
 
     // theme variable mapping
@@ -107,7 +120,7 @@ const Interface = ({ language, theme, controlFlow, setControlFlow }) => {
         <section className="flex ml-[calc(0.5em_+_var(--sidebar-width))] mr-[0.5em] mt-[calc(1.5em_+_var(--navbar-height))] gap-2 w-full bg-[--secondary-bg] px-2 pt-4 rounded-lg">
             <EditorComponent language={[languageExtension]} text={codeText} setText={setCodeText} theme={themeElement} readyState={readyState} />
             <div className="w-1 bg-[--label-color]" onDrag={(e) => console.log(e)}></div>
-            <OutputComponent text={outputText} theme={themeElement} language={languageExtension} clearOutput={()=>setOutputText('')} /> 
+            <OutputComponent text={outputText} theme={themeElement} language={languageExtension} clearOutput={()=>setOutputText('')} setOutputText={setOutputText} inputHandler={addInput} /> 
         </section>
     )
 };

@@ -1,9 +1,9 @@
 'use client';
 
-import Navbar from "../components/navbar";
-import Sidebar from "../components/sidebar";
+import Navbar from "./components/navbar";
+import Sidebar from "./components/sidebar";
 import { useState } from "react";
-import Interface from "../components/interface/interface";
+import Interface from "./components/interface/interface";
 
 export default function Task1() {
   const [language, setLanguage] = useState('python');
