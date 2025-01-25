@@ -18,26 +18,30 @@ import { java } from "@codemirror/lang-java";
 
 
 
-const Interface = ({ language, theme, controlFlow }) => {
+const Interface = ({ language, theme, controlFlow, setControlFlow }) => {
     const [themeElement, setThemeElement] = useState();
     const [languageExtension, setLanguageExtension] = useState(python);
 
     const [codeText, setCodeText] = useState('');
     const [outputText, setOutputText] = useState('');
 
+    // socket url fetching and connection
     const [socketUrl, setSocketUrl] = useState(process.env.NEXT_PUBLIC_WEBSOCKET_URL);
-
     const { sendMessage, lastMessage, readyState } = useWebSocket(socketUrl);
     
+    // flow controls
     useEffect(() => {
         if (controlFlow === 'run') {
             sendCode();
+            setControlFlow('running');
         }
         else if (controlFlow === 'stop') {
             stopProcess();
+            setControlFlow('stopping');
         }
     }, [controlFlow]);
 
+    // incoming message handler
     useEffect(() => {
         if (lastMessage !==null) {
             const data = JSON.parse(lastMessage.data);
@@ -54,6 +58,27 @@ const Interface = ({ language, theme, controlFlow }) => {
         }
     }, [lastMessage]);
 
+
+    /* API Triggers */
+    // start executing code
+    const sendCode = useCallback(() => {
+        sendMessage(JSON.stringify({
+            "command": "run",
+            "code": codeText,
+            "language": language,
+            "input": ""
+        }))
+    }, [codeText]);
+
+    // stop execution
+    const stopProcess = useCallback(() => {
+        sendMessage(JSON.stringify({
+            "command": "stop"
+        }))
+    }, []);
+
+
+    // theme variable mapping
     useEffect(() => {
         switch (theme) {
             case 'Github Light': setThemeElement(githubLight); break;
@@ -65,21 +90,7 @@ const Interface = ({ language, theme, controlFlow }) => {
         }
     }, [theme]);
 
-    const sendCode = useCallback(() => {
-        sendMessage(JSON.stringify({
-            "command": "run",
-            "code": codeText,
-            "language": language,
-            "input": ""
-        }))
-    }, [codeText]);
-
-    const stopProcess = useCallback(() => {
-        sendMessage(JSON.stringify({
-            "command": "stop"
-        }))
-    }, []);
-
+    // language formatter extension selector
     useEffect(() => {
         switch (language) {
             case 'python': setLanguageExtension(python); break;
@@ -94,7 +105,7 @@ const Interface = ({ language, theme, controlFlow }) => {
 
     return (
         <section className="flex ml-[calc(0.5em_+_var(--sidebar-width))] mr-[0.5em] mt-[calc(1.5em_+_var(--navbar-height))] gap-2 w-full bg-[--secondary-bg] px-2 pt-4 rounded-lg">
-            <EditorComponent language={[languageExtension]} text={codeText} setText={setCodeText} theme={themeElement} />
+            <EditorComponent language={[languageExtension]} text={codeText} setText={setCodeText} theme={themeElement} readyState={readyState} />
             <div className="w-1 bg-[--label-color]" onDrag={(e) => console.log(e)}></div>
             <OutputComponent text={outputText} theme={themeElement} language={languageExtension} clearOutput={()=>setOutputText('')} /> 
         </section>

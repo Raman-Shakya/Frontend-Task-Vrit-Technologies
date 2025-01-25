@@ -15,10 +15,10 @@ export default function Task1() {
   
   return (
     <div>
-      <Navbar language={language} theme={theme} setLanguage={setLanguage} setTheme={setTheme} languages={languages} themes={themes} setControlFlow={setControlSignal} />
+      <Navbar language={language} theme={theme} setLanguage={setLanguage} setTheme={setTheme} languages={languages} themes={themes} setControlFlow={setControlSignal} controlFlow={controlSignal} />
       <div className="flex h-full w-full">
         <Sidebar language={language} setLanguage={setLanguage} languages={languages} />
-        <Interface language={language} theme={theme} controlFlow={controlSignal} />
+        <Interface language={language} theme={theme} controlFlow={controlSignal} setControlFlow={setControlSignal} />
       </div>
     </div>
   );

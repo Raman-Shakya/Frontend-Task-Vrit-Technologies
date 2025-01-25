@@ -8,11 +8,14 @@
   --dark-border-color: #111827;
   --text-color: #e6e6e6;
   --label-color: #6b7280;
-  --blue-color: #1976d2;
+  --blue-color: rgba(25, 118, 210, 0.5);
   --blue-selected-color: #1976d2;
 
   --green: #23a051;
-  --red: #991b1b;
+  --red: #dd2726;
+
+  --dark-green: #166534;
+  --dark-red: #991b1b;
 
   --navbar-height: 72px;
   --sidebar-width: 90px;
