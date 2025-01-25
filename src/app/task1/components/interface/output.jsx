@@ -2,9 +2,10 @@
 
 import CodeMirror from "@uiw/react-codemirror";
 import { useEffect, useState } from "react";
+import parse from 'html-react-parser'
 
-const OutputComponent = ({ language, text, theme, clearOutput, setOutputText, inputHandler }) => {
-    const [inputText, setInputText] = useState();
+const OutputComponent = ({ language, languageText, text, theme, clearOutput, setOutputText, inputHandler }) => {
+    const [inputText, setInputText] = useState('');
     const [incomingText, setIncomingText] = useState(text);
 
     // initial text input
@@ -50,15 +51,18 @@ const OutputComponent = ({ language, text, theme, clearOutput, setOutputText, in
                 <span  className="text-[--label-color]">Output:</span>
                 <button className="py-1 px-2 border text-sm border-[--blue-color] text-[--blue-selected-color] hover:border-[--blue-selected-color]" onClick={clearOutput}>CLEAR</button>
             </div>
-
-            <CodeMirror 
-                value={inputText}
-                onChange={changeHandler}
-                height={"100vh"} 
-                theme={theme}
-                extensions={language}
-                className="border-8 border-[--dark-border-color] rounded-lg"
-            />
+            { languageText==='html' ? <div className="w-full h-full bg-white text-black">
+                    { parse(inputText) }
+                </div> :
+                <CodeMirror 
+                    value={inputText}
+                    onChange={changeHandler}
+                    height={"100vh"} 
+                    theme={theme}
+                    extensions={language}
+                    className="border-8 border-[--dark-border-color] rounded-lg"
+                />
+            }
         </section>
     )
 }

@@ -67,6 +67,10 @@ const Interface = ({ language, theme, controlFlow, setControlFlow }) => {
     /* API Triggers */
     // start executing code
     const sendCode = useCallback(() => {
+        // HTML is unsupported and handled by default
+        if (language==='html') {
+            return;
+        }
         sendMessage(JSON.stringify({
             "command": "run",
             "code": codeText,
@@ -120,7 +124,7 @@ const Interface = ({ language, theme, controlFlow, setControlFlow }) => {
         <section className="flex ml-[calc(0.5em_+_var(--sidebar-width))] mr-[0.5em] mt-[calc(1.5em_+_var(--navbar-height))] gap-2 w-full bg-[--secondary-bg] px-2 pt-4 rounded-lg">
             <EditorComponent language={[languageExtension]} text={codeText} setText={setCodeText} theme={themeElement} readyState={readyState} />
             <div className="w-1 bg-[--label-color]" onDrag={(e) => console.log(e)}></div>
-            <OutputComponent text={outputText} theme={themeElement} language={languageExtension} clearOutput={()=>setOutputText('')} setOutputText={setOutputText} inputHandler={addInput} /> 
+            <OutputComponent text={language==='html' ? codeText : outputText} theme={themeElement} language={languageExtension} languageText={language} clearOutput={()=>setOutputText('')} setOutputText={setOutputText} inputHandler={addInput} /> 
         </section>
     )
 };
