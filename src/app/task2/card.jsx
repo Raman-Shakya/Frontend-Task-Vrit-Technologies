@@ -1,11 +1,12 @@
 import Image from 'next/image'
 import style from './card.module.css'
+import Link from 'next/link'
 
 const Card = ({ statistics, title, description, active, onClick, illustrationPos }) => {
   return (
     <div className={`bg-[--task2-red] ${style.card} ${active?style.active:''}`} onClick={onClick}>
-        <div>
-            <p>View all Courses</p>
+        <div className={style.linkContainer}>
+            <Link href="#">View all Courses <Image src="/assets/icons/arrow.svg" width={10} height={10} alt='arrow' className={style.arrow}/></Link>
         </div>
         <div className={`${style.illustrationWrapper} ${illustrationPos<0 ? style.illustrationLeft : illustrationPos>0 ? style.illustrationRight : ''}`}>
             <Image src="/assets/icons/react.svg"        width={100} height={100} alt='react' />
