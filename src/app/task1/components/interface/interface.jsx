@@ -90,7 +90,7 @@ const Interface = ({ language, theme, controlFlow, setControlFlow }) => {
     const addInput = useCallback((inputValue) => {
         sendMessage(JSON.stringify({
             "command": "input",
-            "input": inputValue
+            "input": inputValue + '\n'
         }));
     })
 
